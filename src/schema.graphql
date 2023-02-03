@@ -1,0 +1,44 @@
+type Product {
+  id: ID!
+  name: String!
+  unitPrice: Float!
+}
+
+type ShoppingCartItem {
+  id: ID!
+  name: String!
+  unitPrice: Float!
+  quantity: Int!
+}
+
+type ShoppingCart {
+  id: ID!
+  items: [ShoppingCartItem]!
+  totalPrice: Float!
+}
+
+type DeletedResourceResponse {
+  deletedId: ID
+  success: Boolean
+}
+
+type Query {
+  getProductById(productId: ID!): Product
+  getShoppingCartById(shoppingCartId: ID!): ShoppingCart
+}
+
+type Mutation {
+  createProduct(name: String!, unitPrice: Float!): Product
+  createShoppingCart: ShoppingCart!
+  addItemToShoppingCart(
+    shoppingCartId: ID!
+    productId: ID!
+    quantity: Int!
+  ): ShoppingCart
+  deleteShoppingCartItem(
+    shoppingCartId: ID!
+    shoppingCartItemId: ID!
+    quantity: Int
+  ): ShoppingCart
+  deleteShoppingCart(shoppingCartId: ID!): DeletedResourceResponse
+}
